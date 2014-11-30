@@ -25,7 +25,8 @@ body{
 	background: #CCC;
 	list-style-type:none;
 }
-.nextBtn{
+.btn{
+	display: inline-block;
 	padding: 5px;
 	width: 3em;
 	text-align: center;
@@ -33,7 +34,7 @@ body{
 	color: #FFF;
 	border-radius:3px;
 }
-.nextBtn:hover{
+.btn:hover{
 	opacity: 0.7;
 }
 .cl{ /zoom : 1; }
@@ -49,19 +50,38 @@ body{
 			<li class="item">4</li>
 		</ul>
 	</div>
-	<div class="js-next nextBtn">次へ</div>
+	<div class="js-pre btn">前へ</div>
+	<div class="js-next btn">次へ</div>	
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
 (function(){
 	var next = $('.js-next'); //次へボタン
+	var pre = $('.js-pre'); //前へボタン
 	var list = $('.js-itemList'); //ul要素
 	var itemNum = $('.item').length; //.itemの数
-	var movePixel =  '-' + $('.item').width(); //.itemの幅を取得
+	var movePixel =  $('.item').width(); //.itemの幅を取得
+	
 	$(next).click(
 		function(){
-			for(i=0; i<itemNum; i++){
-				var move = movePixel*i+'px';
-				$(list).css('margin-left',move);
+			var getMarginLeft = parseInt($(list).css('margin-left')); //listのmargin-leftを取得
+			var nextMarginLeft = getMarginLeft-movePixel+'px'; //listが移動する幅
+			var maxMarginLeft = '-' +movePixel*(itemNum-1); //上限
+			if(getMarginLeft >maxMarginLeft){
+				$(list).css('margin-left',nextMarginLeft);
+			}else{
+				//これ以上次に行かない
+			}
+		}
+	);
+	$(pre).click(
+		function(){
+			var getMarginLeft = parseInt($(list).css('margin-left')); //listのmargin-leftを取得
+			var preMarginLeft = getMarginLeft+movePixel+'px'; //listが移動する幅
+			var minMarginLeft = 0; //下限
+			if(getMarginLeft <minMarginLeft){
+				$(list).css('margin-left',preMarginLeft);
+			}else{
+				//これ以上前に行かない
 			}
 		}
 	);
