@@ -62,7 +62,7 @@ body{
 		</ul>
 	</div>
 	<div class="js-pre btn">前へ</div>
-	<div class="js-next btn">次へ</div>	
+	<div class="js-next btn">次へ</div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
 (function(){
@@ -78,7 +78,9 @@ body{
 			var nextMarginLeft = getMarginLeft-movePixel+'px'; //listが移動する幅
 			var maxMarginLeft = '-' +movePixel*(itemNum-1); //上限
 			if(getMarginLeft >maxMarginLeft){
-				$(list).css('margin-left',nextMarginLeft);
+				$(list).animate({
+					'marginLeft':nextMarginLeft
+				});
 			}else{
 				//これ以上次に行かない
 			}
@@ -90,7 +92,9 @@ body{
 			var preMarginLeft = getMarginLeft+movePixel+'px'; //listが移動する幅
 			var minMarginLeft = 0; //下限
 			if(getMarginLeft <minMarginLeft){
-				$(list).css('margin-left',preMarginLeft);
+				$(list).animate({
+					'marginLeft':preMarginLeft
+				});
 			}else{
 				//これ以上前に行かない
 			}
